@@ -1,36 +1,50 @@
 package se.lexicon.workshop_jpa_hibernate_etc.data;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import se.lexicon.workshop_jpa_hibernate_etc.models.AppUser;
 import se.lexicon.workshop_jpa_hibernate_etc.models.Details;
 
+import javax.persistence.EntityManager;
 import java.util.Collection;
 
 @Repository
 public class DetailsDAORepository implements DetailsDAO{
 
+    private final EntityManager em;
+
+    public DetailsDAORepository(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
-    public Details findByInt(int detailsId) {
-        return null;
+    @Transactional(readOnly = true)
+    public Details findById(int detailsId) {
+        return em.find(Details.class, detailsId);
     }
 
     @Override
     public Collection<Details> findAll() {
-        return null;
+        return em.createQuery("SELECT user FROM Details user", Details.class).getResultList();
     }
 
     @Override
     public Details create(Details details) {
-        return null;
+        em.persist(details);
+        return details;
     }
 
     @Override
     public Details update(Details details) {
-        return null;
+        return em.merge(details);
     }
 
     @Override
     public void delete(int detailsId) {
+        Details details = findById(detailsId);
+        if (details != null) {
+            em.remove(details);
 
+        }
     }
 }

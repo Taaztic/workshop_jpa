@@ -6,7 +6,7 @@ import javax.xml.soap.Detail;
 import java.util.Collection;
 
 public interface DetailsDAO {
-    Details findByInt(int detailsId);
+    Details findById(int detailsId);
     Collection<Details> findAll();
     Details create(Details details);
     Details update(Details details);
