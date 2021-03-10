@@ -1,9 +1,7 @@
 package se.lexicon.workshop_jpa_hibernate_etc.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -14,11 +12,19 @@ public class Book {
     private String isbn;
     private String title;
     private int maxLoanDays;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "author_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<Author> authors;
 
-    public Book(String isbn, String title, int maxLoanDays) {
+    public Book(int bookId, String isbn, String title, int maxLoanDays, Set<Author> authors) {
+        this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.maxLoanDays = maxLoanDays;
+        this.authors = authors;
     }
 
     public Book() {
@@ -50,5 +56,13 @@ public class Book {
 
     public void setMaxLoanDays(int maxLoanDays) {
         this.maxLoanDays = maxLoanDays;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
     }
 }

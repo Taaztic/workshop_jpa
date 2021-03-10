@@ -29,7 +29,7 @@ public class AppUserDAORepository implements AppUserDAO{
     @Override
     @Transactional(readOnly = true)
     public Collection<AppUser> findAll() {
-        return em.createQuery("SELECT user FROM AppUser user", AppUser.class).getResultList();
+        return em.createQuery("SELECT appuser FROM AppUser appuser", AppUser.class).getResultList();
     }
 
     @Override

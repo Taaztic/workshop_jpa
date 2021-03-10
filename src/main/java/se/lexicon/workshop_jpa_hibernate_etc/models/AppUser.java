@@ -21,7 +21,8 @@ public class AppUser {
     @JoinColumn(name = "details_Id", table = "app_user")
     private Details userDetails;
 
-    public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
+    public AppUser(int appUserId, String username, String password, LocalDate regDate, Details userDetails) {
+        this.appUserId = appUserId;
         this.username = username;
         this.password = password;
         this.regDate = regDate;

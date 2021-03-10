@@ -15,19 +15,25 @@ public class BookLoan {
     private LocalDate loanDate;
     private LocalDate dueDate;
     private boolean returned;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "borrower_Id", table = "book_loan")
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "app_user_id", table = "book_loan")
     private AppUser borrower;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_Id", table = "book_loan")
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", table = "book_loan")
     private Book book;
 
-    public BookLoan(LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
+    public BookLoan(int loadId, LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
+        this.loanId = loadId;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.returned = returned;
         this.borrower = borrower;
         this.book = book;
+    }
+
+    public BookLoan(LocalDate loanDate, Book book) {
+        this(0, loanDate, loanDate.plusDays(book.getMaxLoanDays()), false, null, book);
+
     }
 
     public BookLoan() {

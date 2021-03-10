@@ -19,8 +19,8 @@ public class Details {
     private String name;
     private LocalDate birthDate;
 
-    public Details(String email, String name, LocalDate birthDate) {
-
+    public Details(int detailsId, String email, String name, LocalDate birthDate) {
+        this.detailsId = detailsId;
         this.email = email;
         this.name = name;
         this.birthDate = birthDate;
