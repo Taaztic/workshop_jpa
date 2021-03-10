@@ -4,6 +4,7 @@ package se.lexicon.workshop_jpa_hibernate_etc.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Entity
@@ -81,5 +82,28 @@ public class BookLoan {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookLoan bookLoan = (BookLoan) o;
+        return loanId == bookLoan.loanId && returned == bookLoan.returned && Objects.equals(loanDate, bookLoan.loanDate) && Objects.equals(dueDate, bookLoan.dueDate) && Objects.equals(borrower, bookLoan.borrower) && Objects.equals(book, bookLoan.book);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(loanId, loanDate, dueDate, returned, borrower, book);
+    }
+
+    @Override
+    public String toString() {
+        return "BookLoan{" +
+                "loanId=" + loanId +
+                ", loanDate=" + loanDate +
+                ", dueDate=" + dueDate +
+                ", returned=" + returned +
+                '}';
     }
 }
