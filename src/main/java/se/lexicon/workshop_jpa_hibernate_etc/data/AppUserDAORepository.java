@@ -27,22 +27,26 @@ public class AppUserDAORepository implements AppUserDAO{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Collection<AppUser> findAll() {
         return em.createQuery("SELECT user FROM AppUser user", AppUser.class).getResultList();
     }
 
     @Override
+    @Transactional
     public AppUser create(AppUser appUser) {
         em.persist(appUser);
         return appUser;
     }
 
     @Override
+    @Transactional
     public AppUser update(AppUser appUser) {
         return em.merge(appUser);
     }
 
     @Override
+    @Transactional
     public void delete(int appUserId) {
         AppUser appUser = findById(appUserId);
         if(appUser != null){

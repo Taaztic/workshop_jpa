@@ -24,22 +24,26 @@ public class DetailsDAORepository implements DetailsDAO{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Collection<Details> findAll() {
-        return em.createQuery("SELECT user FROM Details user", Details.class).getResultList();
+        return em.createQuery("SELECT details FROM Details details", Details.class).getResultList();
     }
 
     @Override
+    @Transactional
     public Details create(Details details) {
         em.persist(details);
         return details;
     }
 
     @Override
+    @Transactional
     public Details update(Details details) {
         return em.merge(details);
     }
 
     @Override
+    @Transactional
     public void delete(int detailsId) {
         Details details = findById(detailsId);
         if (details != null) {
