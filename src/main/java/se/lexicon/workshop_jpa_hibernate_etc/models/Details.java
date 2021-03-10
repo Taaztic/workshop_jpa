@@ -1,6 +1,6 @@
 package se.lexicon.workshop_jpa_hibernate_etc.models;
 
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,8 +19,8 @@ public class Details {
     private String name;
     private LocalDate birthDate;
 
-    public Details(int detailsId, String email, String name, LocalDate birthDate) {
-        this.detailsId = detailsId;
+    public Details(String email, String name, LocalDate birthDate) {
+
         this.email = email;
         this.name = name;
         this.birthDate = birthDate;

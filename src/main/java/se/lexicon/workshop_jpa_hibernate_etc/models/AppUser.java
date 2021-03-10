@@ -1,7 +1,6 @@
 package se.lexicon.workshop_jpa_hibernate_etc.models;
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,7 +17,8 @@ public class AppUser {
     private String username;
     private String password;
     private LocalDate regDate;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "details_Id", table = "app_user")
     private Details userDetails;
 
     public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
