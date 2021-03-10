@@ -1,6 +1,7 @@
 package se.lexicon.workshop_jpa_hibernate_etc.data;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.workshop_jpa_hibernate_etc.models.Book;
@@ -15,6 +16,7 @@ public class BookDAORepository implements BookDAO{
 
     private final EntityManager em;
 
+    @Autowired
     public BookDAORepository(EntityManager em) {
         this.em = em;
     }

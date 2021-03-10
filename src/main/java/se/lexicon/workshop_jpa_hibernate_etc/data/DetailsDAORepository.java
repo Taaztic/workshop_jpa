@@ -1,5 +1,6 @@
 package se.lexicon.workshop_jpa_hibernate_etc.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.workshop_jpa_hibernate_etc.models.AppUser;
@@ -13,6 +14,7 @@ public class DetailsDAORepository implements DetailsDAO{
 
     private final EntityManager em;
 
+    @Autowired
     public DetailsDAORepository(EntityManager em) {
         this.em = em;
     }
